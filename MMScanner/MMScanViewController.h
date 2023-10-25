@@ -10,11 +10,15 @@
 
 typedef void(^_CallBack)(NSArray *result);
 
+typedef void(^OnBackAction)(void);
+
 @interface MMScanViewController : UIViewController
 
 @property (nonatomic, strong) UILabel *tipTitle;  //扫码区域下方提示文字
 
 @property (nonatomic, strong) UIView *toolsView;  //底部显示的功能项 -box
+
+@property (nonatomic, copy) OnBackAction onback;
 
 /**
  导航条按钮

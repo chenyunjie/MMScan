@@ -207,6 +207,9 @@ static NSString *kMMScanHistoryKey = @"kMMScanHistoryKey";
 }
 
 - (void) backBtnClick {
+    if (self.onback) {
+        self.onback();
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 
