@@ -66,16 +66,19 @@ static NSString *kMMScanHistoryKey = @"kMMScanHistoryKey";
     // Do any additional setup after loading the view.
     
     [self config];
+    
     [self configScanDevide];
     [self configTitle];
     [self configFlashBtn];
     [self configScanView];
     [self configScanType];
     [self setNavItem:self.scanType];
+    [self configBack];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
     //开始捕获
     if (self.session) [self.session startRunning];
 }
@@ -191,6 +194,20 @@ static NSString *kMMScanHistoryKey = @"kMMScanHistoryKey";
     }
     _tipTitle.layer.zPosition = 1;
     [self.view bringSubviewToFront:_tipTitle];
+}
+
+- (void) configBack {
+    CGFloat WH = 44;
+    UIEdgeInsets safeAreaInsets = [UIApplication sharedApplication].keyWindow.safeAreaInsets;
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(safeAreaInsets.left + 15, safeAreaInsets.top + 15, WH, WH)];
+    [button setImage: [UIImage imageNamed:@"back" inBundle:self.scanBundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button];
+    
+}
+
+- (void) backBtnClick {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)configFlashBtn {
